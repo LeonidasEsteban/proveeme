@@ -1,0 +1,233 @@
+{% load static %} {% get_static_prefix as STATIC_PREFIX %}
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Provee.me</title>
+
+	<style>
+
+	* {
+		margin:0;
+		padding: 0;
+	}
+
+	body, input, textarea {
+		font-family: arial, sans-serif;
+		font-size:14px;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		font-weight: normal;
+	}
+
+	h2 {
+		color:white;
+		background: black;
+		padding:15px 50px;
+
+		font-size:;
+	}
+
+	h3 {
+		font-size:20px;
+		margin: 30px 0 10px;
+	}
+
+
+	.bloque {
+		margin:0 35px;
+	}
+
+	button {
+		border:0;
+		background:#0081db;
+		color:white;
+		padding:15px 20px;
+		margin:10px 0;
+	}
+
+	input[type="text"] {
+		border:1px solid black;
+		padding:5px;
+		width:200px;
+		margin:5px 0;
+	}
+
+	input.disabled {
+		border-color:lightgray;
+	}
+
+	input[type="radio"] {
+		margin-left:10px;
+	}
+
+	p {
+		margin:5px 0;
+	}
+
+	#concuer {
+		background:#c4c4c4;
+		padding:10px 15px;
+		margin:15px 0;
+		width:220px;
+		
+	}
+
+	#concuer strong {
+		font-size:35px;
+		margin-right:10px;
+		margin-top:-3px;
+		float:left;
+	}
+
+	</style>
+
+	<link rel="stylesheet" href="{{ STATIC_PREFIX }}fcbkcomplete/style.css" />
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+
+	<script src="{{ STATIC_PREFIX }}fcbkcomplete/jquery.fcbkcomplete.min.js"></script>
+
+	<script>
+	jQuery(function ($) {
+		var $concuer = $('#concuer').hide(), $regiones = $('#regiones').hide(), $success = $('#success').hide();
+
+		function isEmptyStr(str) { return str.match(/^\s*$/); }
+
+		var prod_count = 2, reg_count = 2;
+		$('input.producto').live('focus', function () {
+			var $self = $(this), $prev = $self.parent().prev('p').find('input.producto');
+
+			if($prev.size() > 0) {
+				if(isEmptyStr($prev.val())) return $prev.focus();
+			}
+
+			if($self.parent().next('p').size() <= 0) {
+				$('<p><input type="text" placeholder="Producto '+prod_count+'" name="producto-'+prod_count+'" class="producto disabled" /></p>').insertAfter($self.parent());
+
+				prod_count++;
+			}
+
+			$self.removeClass('disabled');
+		});
+
+		$('input.producto').live('blur', function () {
+			var $self = $(this), $next = $self.parent().next('p').find('input.producto');
+
+			if(isEmptyStr($self.val())) {
+				$next.parent().remove();
+
+				prod_count--;
+
+				$self.addClass('disabled');
+			} else {
+				$concuer.show();
+			}
+		});
+
+
+		$('input.producto').fcbkcomplete({
+			json_url: '/buscar_producto',
+			cache: false,
+			filter_case: true,
+			filter_hide: true,
+			newel: true
+		});
+
+		// reg
+		$('input.region').live('focus', function () {
+			var $self = $(this), $prev = $self.parent().prev('p').find('input.region');
+
+			if($prev.size() > 0) {
+				if(isEmptyStr($prev.val())) return $prev.focus();
+			}
+
+			if($self.parent().next('p').size() <= 0) {
+				console.log('yey')
+				$('<p><input type="text" placeholder="Región '+prod_count+'" name="region-'+prod_count+'" class="region disabled" /></p>').insertAfter($self.parent());
+
+				prod_count++;
+			}
+
+			$self.removeClass('disabled');
+		});
+
+		$('input.region').live('blur', function () {
+			var $self = $(this), $next = $self.parent().next('p').find('input.region');
+
+			if(isEmptyStr($self.val())) {
+				$next.parent().remove();
+
+				prod_count--;
+
+				$self.addClass('disabled');
+			} else {
+				
+			}
+		});
+
+		$('input.zona').change(function () {
+			var $self = $(this);
+
+			if($self.val() == 0) {
+				$regiones.show();
+			} else {
+				$regiones.hide();
+			}
+		});
+
+		$('#solic-coti').submit(function () {
+			var $self = $(this);
+
+			$success.show();
+			$self.hide();
+
+			return false;
+		})
+	});
+	</script>
+</head>
+<body>
+
+
+<h2>Solicitar cotizaciones</h2>
+
+
+<div class="bloque">
+
+<form method="POST" id="solic-coti">
+	<h3>1. ¿Qué quieres cotizar?</h3>
+
+	<p><input type="text" placeholder="Producto 1" name="producto-1" class="producto" /></p>
+
+
+	<h3>2. ¿Cotizar en todo Chile?</h3>
+
+	<p><input type="radio" name="zona" class="zona" value="1" checked /> Sí, en todo Chile <input type="radio" name="zona" value="0" class="zona" /> En regiones específicas</p>
+
+	<div id="regiones">
+		<h3>3. ¿En qué regiones quieres cotizar?</h3>
+
+		<p><input type="text" placeholder="Región 1" name="region-1" class="region" /></p>
+	</div>
+
+	<div id="concuer">
+		<p><strong>12</strong> empresas concuerdan con estas características.</p>
+	</div>
+
+	<button type="submit">Solicitar cotizaciones</button>
+</form>
+
+<div id="success">
+	<h3>¡Listo!</h3>
+
+	<p>Tu solicitud de cotización se ha enviado a <strong>12 empresas</strong>.<br />
+		Ahora solo debes esperar. Te notificaremos cuando te <br />lleguen cotizaciones</p>
+</div>
+
+</div>
+
+
+</body>
+</html>
