@@ -8,6 +8,8 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'website.views.home'),
     url(r'^buscar_producto/?$', 'website.views.buscar_producto'),
+    url(r'^buscar_region/?$', 'website.views.buscar_region'),
+    url(r'^buscar_empresas/?$', 'website.views.buscar_empresas'),
 
     # url(r'^proveeme/', include('proveeme.foo.urls')),
 
