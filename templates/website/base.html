@@ -1,0 +1,55 @@
+{% load static %} {% get_static_prefix as STATIC_PREFIX %}
+{% load website_extras %}
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="utf-8" />
+	<title>Provee.me</title>
+
+	<link href="{{ STATIC_PREFIX }}bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="{{ STATIC_PREFIX }}css/base.css" rel="stylesheet">
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+	<script src="{{ STATIC_PREFIX }}bootstrap/js/bootstrap.min.js"></script>
+
+  {% block head %}{% endblock %}
+	
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+
+      <!-- Be sure to leave the brand out there if you want it shown -->
+      <a class="brand" href="/">Provee.me</a>
+ 
+      <!-- Everything you want hidden at 940px or less, place within here -->
+      <div class="nav-collapse">
+        <ul class="nav">
+          {% if user.is_authenticated %}
+          {% url website.views.cotiza as cotiza %}
+          {% url website.views.solicitudes as solicitudes %}
+          {% url website.views.cotizaciones as cotizaciones %}
+          <li class="{% active request cotiza %}"><a href="{{ cotiza }}">Cotiza</a></li>
+          <li class="{% active request solicitudes %}"><a href="{{ solicitudes }}">Solicitudes <span class="badge">{{ user.get_profile.solicitudes|length }}</span></a></li>
+          <li class="{% active request cotizaciones %}"><a href="{{ cotizaciones }}">Cotizaciones <span class="badge">{{ user.get_profile.cotizaciones|length }}</span></a></li>
+          <li><a href="{% url website.views.salir %}">Salir</span></a></li>
+          {% else %}
+          {% url website.views.entrar as entrar %}
+          {% url website.views.registro as registro %}
+          <li class="{% active request entrar %}"><a href="{{ entrar }}">Entrar</a></li>
+          <li class="{% active request registro %}"><a href="{{ registro }}">Registro</a></li>
+          {% endif %}
+        </ul>
+      </div>
+ 
+    </div>
+  </div>
+</div>
+
+<div class="container" id="main_container">
+{% block body %}{% endblock %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+{% extends "website/base.html" %}
+
+
+{% block head %}
+<script src="{{ STATIC_PREFIX }}js/registro.js"></script>
+{% endblock %}
+
+{% block body %}
+
+
+<h1>Registro</h1>
+
+<form class="form-horizontal" method="POST" action="{{ registro }}" id="formRegistr">
+
+<legend>Registro de empresa</legend>
+
+<h4>1. ¿Cómo se llama tu empresa?</h4>
+
+<div class="control-group">
+	<label class="control-label" for="inputNombre">Nombre</label>
+	<div class="controls">
+	  <input type="text" name="nombre" id="inputNombre" placeholder="ej. Central Coffee & Lounge" />
+	</div>
+</div>
+
+<h4>2. ¿Cómo te contactamos?</h4>
+
+<div class="control-group">
+	<label class="control-label" for="inputEmail">E-mail</label>
+	<div class="controls">
+	  <input type="text" name="email" id="inputEmail" placeholder="ej. me@example.com">
+	</div>
+</div>
+
+<div class="control-group">
+	<label class="control-label" for="inputTel">Teléfono</label>
+	<div class="controls">
+	  <input type="text" name="telefono" id="inputTel" placeholder="ej. (228) 154 88 67">
+	</div>
+</div>
+
+<h4>3. ¿Quieres que otras empresas te soliciten cotizaciones?</h4>
+
+<div class="control-group">
+<label class="radio inline">
+  <input type="radio" name="optionsRadios" value="1">
+  Sí quiero
+</label>
+<label class="radio inline">
+  <input type="radio" name="optionsRadios" value="0" checked>
+  No quiero
+</label>
+</div>
+
+<div id="productos"></div>
+
+<div class="form-actions">
+  <button type="submit" class="btn btn-primary">Registrarme</button>
+</div>
+
+</form>
+
+{% endblock %}

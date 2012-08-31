@@ -1,0 +1,16 @@
+{% extends "website/base.html" %}
+
+{% block body %}
+
+<h1>Cotizaciones</h1>
+
+{% for cotizacion in user.get_profile.cotizaciones %}
+
+<h2>{{ cotizacion.solicitado }} </h2>
+
+<p>{{ cotizacion.producto }} <span class="label">${{ cotizacion.cotizacion }}</span></p>
+
+
+{% endfor %}
+
+{% endblock %}

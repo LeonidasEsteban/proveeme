@@ -24,10 +24,27 @@ class Empresa(models.Model):
 	productos = models.ManyToManyField(Producto, blank=True)
 	regiones  = models.ManyToManyField(Region, blank=True)
 
+	def solicitudes(self):
+		return Solicitud.objects.filter(solicitado=self)
+
+	def cotizaciones(self):
+		return Solicitud.objects.filter(solicitante=self)
+
 	def __unicode__(self):
 		if not self.nombre: return self.user.username
 		
 		return self.nombre
+
+class Solicitud(models.Model):
+	producto 	= models.ForeignKey(Producto)
+
+	solicitante = models.ForeignKey(Empresa, related_name='solicitante')
+	solicitado  = models.ForeignKey(Empresa, related_name='solicitado')
+
+	cotizacion  = models.CharField(max_length=300, blank=True)
+	adjunto     = models.FileField(blank=True, upload_to='adjuntos')
+
+
 
 def create_user_profile(sender, instance, created, **kwargs):
 	if created:

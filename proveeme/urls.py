@@ -7,9 +7,17 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'website.views.home'),
-    url(r'^buscar_producto/?$', 'website.views.buscar_producto'),
-    url(r'^buscar_region/?$', 'website.views.buscar_region'),
-    url(r'^buscar_empresas/?$', 'website.views.buscar_empresas'),
+    url(r'^entrar$', 'website.views.entrar'),
+    url(r'^registro$', 'website.views.registro'),
+    url(r'^cotiza$', 'website.views.cotiza'),
+    url(r'^solicitudes$', 'website.views.solicitudes'),
+    url(r'^cotizaciones$', 'website.views.cotizaciones'),
+    url(r'^salir$', 'website.views.salir'),
+
+    # search engine
+    url(r'^buscar_producto$', 'website.views.buscar_producto'),
+    url(r'^buscar_region$', 'website.views.buscar_region'),
+    url(r'^buscar_empresas$', 'website.views.buscar_empresas'),
 
     # url(r'^proveeme/', include('proveeme.foo.urls')),
 

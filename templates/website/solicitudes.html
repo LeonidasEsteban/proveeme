@@ -1,0 +1,26 @@
+{% extends "website/base.html" %}
+
+{% block body %}
+
+<h1>Solicitudes</h1>
+
+{% for solicitud in user.get_profile.solicitudes %}
+
+<h2>{{ solicitud.solicitante }} te solicita... </h2>
+
+<p>La empresa <strong>{{ solicitud.solicitante }}</strong> te solicita una cotización de: <span class="label">{{ solicitud.producto }}</span></p>
+
+{% if not solicitud.cotizacion %}
+<form method="POST" action="{% url website.views.solicitudes %}" class="form-inline">
+	<input type="hidden" name="solicitud_id" value="{{ solicitud.id }}" />
+	<div class="input-prepend input-append">
+      <span class="add-on">$</span>
+      <input class="span1" id="appendedPrependedInput" size="16" type="text" name="precio">
+      <button class="btn" type="submit">Responder</button>
+    </div>
+</form>
+{% endif %}
+
+{% endfor %}
+
+{% endblock %}

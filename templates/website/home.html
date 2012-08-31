@@ -1,58 +1,16 @@
-{% load static %} {% get_static_prefix as STATIC_PREFIX %}
-<!doctype html>
-<html>
-<head>
-	<meta charset="utf-8" />
-	<title>Provee.me</title>
+{% extends "website/base.html" %}
 
-	<link rel="stylesheet" href="{{ STATIC_PREFIX }}stylesheets/home.css" />
-	<link rel="stylesheet" href="{{ STATIC_PREFIX }}autocomplete/css/ui-lightness/jquery-ui-1.8.23.custom.css" />
-	
+{% block body %}
 
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-	<script src="{{ STATIC_PREFIX }}autocomplete/js/jquery-ui-1.8.23.custom.min.js"></script>
-	<script src="{{ STATIC_PREFIX }}javascripts/home.js"></script>
-</head>
-<body>
+<h1>Provee.me</h1>
 
+<p class="lead">Proveeme es una plataforma web que facilita el proceso de cotización de productos.</p>
 
-<h2>Solicitar cotizaciones</h2>
+<p>Actualmente en una empresa, un encargado de cotizar productos debe invertir tiempo en buscar y comparar los precios del mismo producto con diferentes proveedores.</p>
 
+<p>Entonces, a través de proveeme ya no es necesario eso, ese mismo encargado puede escribir qué quiere cotizar y automáticamente proveeme solicita una cotización a todos los proveedores que venden esos productos.
+Y luego de unas horas, se puede obtener un listado ordenado de cotizaciones de ese producto.</p>
 
-<div class="bloque">
+<p>Se elimina el tiempo y esfuerzo que antes se requería para cotizar. Se crean nuevas conexiones entre clientes y proveedores. Se crean nuevas ventas y se compran productos más económicos. Todos salimos ganando.</p>
 
-<form method="POST" id="solic-coti">
-	<h3>1. ¿Qué quieres cotizar?</h3>
-
-	<p><input type="text" placeholder="Producto 1" name="producto-1" class="producto" /></p>
-
-
-	<h3>2. ¿Cotizar en todo Chile?</h3>
-
-	<p><input type="radio" name="zona" class="zona" value="1" checked /> Sí, en todo Chile <input type="radio" name="zona" value="0" class="zona" /> En regiones específicas</p>
-
-	<div id="regiones">
-		<h3>3. ¿En qué regiones quieres cotizar?</h3>
-
-		<p><input type="text" placeholder="Región 1" name="region-1" class="region" /></p>
-	</div>
-
-	<div id="concuer">
-		
-	</div>
-
-	<button type="submit">Solicitar cotizaciones</button>
-</form>
-
-<div id="success">
-	<h3>¡Listo!</h3>
-
-	<p>Tu solicitud de cotización se ha enviado a <strong>12 empresas</strong>.<br />
-		Ahora solo debes esperar. Te notificaremos cuando te <br />lleguen cotizaciones</p>
-</div>
-
-</div>
-
-
-</body>
-</html>
+{% endblock %}

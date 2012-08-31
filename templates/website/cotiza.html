@@ -1,0 +1,32 @@
+{% extends "website/base.html" %}
+
+{% block head %}
+<script src="{{ STATIC_PREFIX }}js/cotiza.js"></script>
+{% endblock %}
+
+{% block body %}
+
+<h1>Cotiza</h1>
+
+<form class="form-horizontal" method="POST" action="{{ cotiza }}" id="formCotiza">
+
+<legend>Solictar cotizaciones</legend>
+
+<h4>1. ¿Qué quieres cotizar?</h4>
+
+<div class="control-group groupProd">
+	<label class="control-label" for="inputProd1">Producto 1</label>
+	<div class="controls">
+	  <input type="text" id="inputProd1" class="inputProd" placeholder="ej. Compresor de aire" />
+	</div>
+</div>
+
+<div class="form-actions">
+  <button type="submit" class="btn btn-primary">Solicitar cotizaciones</button>
+</div>
+
+<select name="producto[]" multiple="multiple" />
+</form>
+
+
+{% endblock %}
